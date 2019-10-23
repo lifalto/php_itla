@@ -2,7 +2,24 @@
 require ('conexion.php');
 
 function buscarCarrera(){
-    echo 'buscar carrera';
+    #echo "buscar carrera";
+       $cn = getConexion();
+
+    $stm = $cn->query("SELECT * FROM carrera");
+
+    $rows = $stm-> fetchAll(PDO::FETCH_ASSOC);
+
+    $data =[];
+
+    foreach ($rows as $row)
+    {$data[] = [
+        "id"=> $row["id"],
+        "nombre"=> $row["nombre"]
+         ];
+    }
+    header("Content-Type: application/json", true);
+    $data = json_encode($data);
+    echo $data;
 };
 
 function guardarCarrera(){
