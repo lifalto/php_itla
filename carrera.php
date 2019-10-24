@@ -28,9 +28,7 @@ function buscarMateria(){
        $cn = getConexion();
 
     $stm = $cn->query("SELECT * FROM materia");
-
     $rows = $stm-> fetchAll(PDO::FETCH_ASSOC);
-
     $data =[];
 
     foreach ($rows as $row)
@@ -39,12 +37,35 @@ function buscarMateria(){
         "nombre"=> $row["nombre"],
         "creditos" => $row["creditos"]
         ];
-
     }
     header("Content-Type: application/json", true);
     $data = json_encode($data);
     echo $data;
 };
+
+function buscarEstudiante(){
+    #echo "buscar Estudiante";
+       $cn = getConexion();
+
+    $stm = $cn->query("SELECT * FROM estudiante");
+    $rows = $stm-> fetchAll(PDO::FETCH_ASSOC);
+    $data =[];
+
+    foreach ($rows as $row)
+    {$data[] = [
+        "id"=> $row["id"],
+        "nombre"=> $row["nombre"],
+        "matricula" => $row["matricula"],
+        "edad" => $row["edad"],
+        "carrera_id" => $row["carrera_id"]
+        ];
+    }
+    header("Content-Type: application/json", true);
+    $data = json_encode($data);
+    echo $data;
+};
+
+
 
 
 
@@ -76,6 +97,23 @@ function guardarMateria()
     echo 'guardar materia';
 };
 
+function guardarEstudiante()
+{     //echo 'guardar Materia';
+    $postdata = file_get_contents ("php://input");
+    //aqui esta como un mapa, arreglo
+    $data = json_decode($postdata, true);
+    //echo ' La carrera '.$data[nombre];
+    $cn = getConexion();
+    $stm = $cn->prepare("INSERT INTO estudiante (nombre, matricula, edad, carrera_id) VALUES (:nombre, :matricula, :edad, :carrera_id )");
+    $stm->bindParam(":nombre", $data[nombre]);
+    $stm->bindParam(":matricula", $data[matricula]);
+    $stm->bindParam(":edad", $data[edad]);
+    $stm->bindParam(":carrera_id", $data[carrera_id]);
+    $data = $stm->execute();
+    echo 'guardar estudiante';
+};
+
+
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch($method){
@@ -90,6 +128,12 @@ switch($method){
         break;
     case 'PUT':
         guardarMateria();
+        break;
+    case 'COPY':
+        buscarEstudiante();
+        break;
+    case 'PATCH':
+        guardarEstudiante();
         break;
     default: 
     echo 'TO BE IMPLEMENTED';
