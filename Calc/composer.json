@@ -1,0 +1,14 @@
+{
+    "name": "lifalto/calc",
+    "type": "library",
+    "require": {
+        "lifalto/calculadora": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lilian Torres",
+            "email": "lifalto@hotmail.com"
+        }
+    ]
+}
