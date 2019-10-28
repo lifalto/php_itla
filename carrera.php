@@ -67,8 +67,6 @@ function buscarEstudiante(){
 
 
 
-
-
 function guardarCarrera()
 {     //echo 'guardar carrera1';
     $postdata = file_get_contents ("php://input");
@@ -117,11 +115,11 @@ function guardarEstudiante()
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch($method){
-    case 'POST':
-        guardarCarrera();
-        break;
     case 'GET':
         buscarCarrera();
+        break;
+    case 'POST':
+        guardarCarrera();
         break;
     case 'DELETE':
         buscarMateria();
