@@ -10,7 +10,7 @@
         }
     ],
     "autoload": {
-        "psr-4": {"calculadora\\": "src/" },
+        "psr-4": {"calculadora\\": "src/" }
     },
 
     "require": {}
