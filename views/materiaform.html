@@ -1,0 +1,42 @@
+<html>
+<head><title>Formulario Llenar Materia</title></head>
+<body>
+<form id="formID" action="/materia.php" method="POST">
+ <p>Llenar Datos de la Materia: <br> <br></p> 
+ <p>Digite el Nombre de la Materia: <input type="text" id="nombre1"/></p>
+ <p>Digite la Cantidad de Creditos de la Materia: <input type="text" id="creditos1"/></p>
+  <input type="button" onclick="guardamateria(document.getElementById('nombre1').value,document.getElementById('creditos1').value)" value="Entrar Datos Materia" />
+ <!-- paso las variables que leo como parametros a la funcion guardamateria -->
+</form>
+</body>
+
+
+<script>
+
+          function guardamateria(nombre1, creditos1) {
+            
+            // recibo los parametros en nombre1, creditos1, y lo meto en json de var data
+                var data = {  "nombre": nombre1,
+                "creditos": creditos1
+                    }
+            
+                fetch("/materia.php", {
+                method: 'POST', 
+                body: JSON.stringify(data), 
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+                })
+                .then(function (data) {  
+                console.log('Request success: ', data);  
+                        })  
+                .catch(function (error) {  
+                console.log('Request failure: ', error);  
+                        });
+
+        
+        }
+</script>
+
+
+</html>
