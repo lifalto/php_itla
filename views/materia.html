@@ -1,0 +1,35 @@
+<html>
+<head>
+    <style> 
+    .titulos_rojos{
+        color:red;
+        font-size: 76px;
+    }
+    </style>
+    
+<script> 
+    function buscarMateria(){
+        fetch("/materia.php")
+        .then( res=> res.json())
+        .then( res=>{
+            var listaM = document.getElementById('list_materia')
+            var temp = '';
+            res.forEach(m => {
+                temp = temp+'<li>'+m.nombre+'</li>'                
+            });
+            listaM.innerHTML = temp;
+        })
+        .catch( err => {
+            console.log(err);
+        });
+    }
+</script>
+</head>
+<body>
+<h1 class="titulos_rojos">Lista de Materias</h1>
+<button onclick="buscarMateria()">Buscar Materias</button>
+<ul id="list_materia">
+
+</ul>
+</body>
+</html>
