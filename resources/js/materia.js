@@ -85,6 +85,7 @@ function editar(id){
 
     document.getElementById("nombre").value = materia.nombre;
     document.getElementById("creditos").value = materia.creditos;
+    this.buscarMateria();
     buscarMateria();
 }
 
