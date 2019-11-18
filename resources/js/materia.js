@@ -48,7 +48,6 @@ function guardar(){
 
     materia.nombre = nombre;
     materia.creditos = creditos;
-
     console.log(materia);
    
     if (nueva == false) {
@@ -72,6 +71,9 @@ function guardar(){
 
 
     materia = null;
+    document.getElementById("nombre").value="";
+    document.getElementById("creditos").value="";
+    buscarMateria();
 }
 
 function editar(id){
@@ -83,6 +85,7 @@ function editar(id){
 
     document.getElementById("nombre").value = materia.nombre;
     document.getElementById("creditos").value = materia.creditos;
+    buscarMateria();
 }
 
 function eliminar(id){
@@ -93,14 +96,14 @@ function eliminar(id){
     .then( res => {
         var row = document.getElementById("row-materia-"+id).rowIndex;
 
-        document.getElementById('list_materia').deleteRow(row);
+        document.getElementById('tabla_materias').deleteRow(row);
         console.log(res);
     })
     .catch( err => {
         console.log(err);
     });
     
-
+    buscarMateria();
 }
 
 

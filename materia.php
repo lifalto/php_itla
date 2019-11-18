@@ -10,12 +10,17 @@ function buscarMateria() {
     $stm = $cn->query("SELECT * FROM materia");
     $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
     $data = json_encode($rows );
+    //creamos header, todas las respuestas deben ser json porque es API
     echo $data;
 }
 
 function guardarMateria() {
     $postdata = file_get_contents("php://input");
+    //sucede cuando es un post or put
     $data = json_decode($postdata, true);
+//decodifico lo que viene del postman
+
+//HTTP_CODE => 400 BAD REQUEST
 
     $errors = [];
     if (!$data["nombre"]) {
@@ -25,9 +30,13 @@ function guardarMateria() {
     if (!$data["creditos"]) {
         $errors[] = "campo creditos es requerido";
     }
+//CONTAMOS EL ERROR Y MANDAMOS EL 400
 
     if (count($errors)>0){
         header("HTTP/1.1 400 Bad Request");
+        //RESPONSE ES UN ARREGLO, Y MANDAR ESE ARREGLO DECODIFICADO AL CLIENTE
+        //SI HAY ERROR SE DEVUELVE DE AHI Y CONTINUA
+        //SI HAY EXCEPCION, DA ERROR DESCONOCIDO
         $response = [ 
             "error" => true,
             "message" => "Campos requeridos",
@@ -51,6 +60,7 @@ function guardarMateria() {
         $response = [ 
             "error" => true,
             "message" => "Error desconocido"
+            // "message" => $e.getMessage()
         ];
         
         echo json_encode($response);
