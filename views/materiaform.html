@@ -1,10 +1,10 @@
 <html>
 <head><title>Formulario Llenar Materia</title></head>
-<body>
-<form id="formID" action="/materia.php" method="POST">
- <p>Llenar Datos de la Materia: <br> <br></p> 
- <p>Digite el Nombre de la Materia: <input type="text" id="nombre1"/></p>
- <p>Digite la Cantidad de Creditos de la Materia: <input type="text" id="creditos1"/></p>
+<body>        
+<form id="formID" action="/materia.php" method="POST" >
+ <p><b>Llenar Datos de la Materia:</b> <br> <br></p> 
+ <p>Digite Nombre de la Materia: <input type="text" id="nombre1"/></p>
+ <p>Digite Creditos de la Materia: <input type="text" id="creditos1"/></p>
   <input type="button" onclick="guardamateria(document.getElementById('nombre1').value,document.getElementById('creditos1').value)" value="Entrar Datos Materia" />
  <!-- paso las variables que leo como parametros a la funcion guardamateria -->
 </form>

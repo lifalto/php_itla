@@ -1,35 +1,118 @@
 <html>
+
 <head>
-    <style> 
-    .titulos_rojos{
-        color:red;
+    <link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.css">
+    <script src="/resources/js/materia.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">ITLA</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/views/">Estudiantes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/views/carrera.html">Carreras</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Materias <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="row" style="padding-top: 30px;">
+
+            <div class="col-4">
+                <h3 style="padding-bottom: 10px;">Registro Materia</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" aria-describedby="nombreAyuda"
+                            placeholder="Digite su nombre">
+                        <small id="nombreAyuda" class="form-text text-muted">El nombre es requerido!</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="creditos">Creditos</label>
+                        <input type="number" class="form-control" id="creditos" placeholder="00">
+                    </div>
+
+                    <button type="button" id="guardarMateria" class="btn btn-primary">Guardar</button>
+                </form>
+
+            </div>
+
+            <div class="col-8">
+                <h3 style="padding-bottom: 10px;">Lista de Materias</h3>
+                <table class="table" id="tabla_materias">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Creditos</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list_materia">
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+
+<!-- <html>
+<head>
+    <style>
+    .titulos_rojos {
+        color: red;
         font-size: 76px;
     }
     </style>
-    
-<script> 
-    function buscarMateria(){
+    <script>
+    function buscarMaterias(){
+        // alert('hola Juan de los palotes');
         fetch("/materia.php")
-        .then( res=> res.json())
-        .then( res=>{
-            var listaM = document.getElementById('list_materia')
-            var temp = '';
-            res.forEach(m => {
-                temp = temp+'<li>'+m.nombre+'</li>'                
+            .then( res => res.json())
+            // .then( function(res){ return res.json()})
+            .then( res => {
+                var listaM = document.getElementById('list_materia');
+               
+                var temp = '';
+                res.forEach(m => {
+                    temp = temp +'<li>'+m.nombre+'</li>'
+                });
+                listaM.innerHTML = temp;
+            })
+            .catch( err => {
+                console.log(err);
             });
-            listaM.innerHTML = temp;
-        })
-        .catch( err => {
-            console.log(err);
-        });
     }
 </script>
 </head>
 <body>
-<h1 class="titulos_rojos">Lista de Materias</h1>
-<button onclick="buscarMateria()">Buscar Materias</button>
-<ul id="list_materia">
+    <h1 class="titulos_rojos">Lista de Materias</h1>
+    <button onclick="buscarMaterias()">Buscar Materias</button>
 
-</ul>
+    <ul id="list_materia">
+
+    </ul>
 </body>
-</html>
+</html> -->
