@@ -1,0 +1,101 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.css">
+    <script src="/resources/js/estudiante.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">ITLA</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/views/estudiante.html">Estudiantes</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/views/carrera.html">Carreras</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">Materias <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="row" style="padding-top: 30px;">
+
+            <div class="col-4">
+                <h3 style="padding-bottom: 10px;">Registro Estudiantes</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" aria-describedby="nombreAyuda"
+                            placeholder="Digite su nombre">
+                        <small id="nombreAyuda" class="form-text text-muted">El nombre es requerido!</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="matricula">Matricula</label>
+                        <input type="text" class="form-control" id="matricula" aria-describedby="matriculaAyuda"
+                            placeholder="Digite su matricula">
+                        <small id="matriculaAyuda" class="form-text text-muted">La matricula es requerida!</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edad">Edad</label>
+                        <input type="text" class="form-control" id="edad" aria-describedby="edadAyuda"
+                            placeholder="Digite su edad">
+                        <small id="edadAyuda" class="form-text text-muted">La edad es requerida!</small>
+                    </div>
+
+
+                    <div class="form-group">
+                            <label for="carrera">Carrera</label>
+                          <select id="lista_carreras" class="form-control">
+                          </select>
+                        
+                    </div>
+                    
+                    <button type="button" id="guardarEstudiante" class="btn btn-primary">Guardar</button>
+                </form>
+
+                
+
+            </div>
+
+            <div class="col-8">
+                <h3 style="padding-bottom: 10px;">Lista de Estudiantes</h3>
+                <table class="table" id="tabla_estudiantes">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Matricula</th>
+                            <th scope="col">Edad</th>
+                            <th scope="col">Carrera_id</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list_estudiante">
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
