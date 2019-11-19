@@ -60,7 +60,7 @@ function guardarMateria() {
         $response = [ 
             "error" => true,
             "message" => "Error desconocido"
-            // "message" => $e.getMessage()
+            // "message" => $e.getMessage() para que me diga cual es el error
         ];
         
         echo json_encode($response);
@@ -103,7 +103,7 @@ function borrarMateria($id) {
             default:
                 $response = [ 
                     "error" => true,
-                    "message" => "Error desconocido"
+                    "message" => $e->getMessage()
                 ];
                 
                 echo json_encode($response);
@@ -123,6 +123,7 @@ function actualizarMateria($id){
         echo json_encode($response);
        
         return;
+        // no continuamos
     } 
 
     $postdata = file_get_contents("php://input");
@@ -138,6 +139,7 @@ function actualizarMateria($id){
     }
 
     if (count($errors)>0){
+        //le hace un count al arreglo, los rows de un arreglo de php, >0 al menos 1 error
         header("HTTP/1.1 400 Bad Request");
         $response = [ 
             "error" => true,
@@ -157,6 +159,7 @@ function actualizarMateria($id){
 
     try {
         $data = $stm->execute();
+        //si falla salta y se va a la excepcion, es un tipo de error que se captura
 
         $response = [ 
             "error" => false,
@@ -167,7 +170,7 @@ function actualizarMateria($id){
 
         $response = [ 
             "error" => true,
-            "message" => "Error desconocido"
+            "message" => $e->getMessage()
         ];
         
         echo json_encode($response);

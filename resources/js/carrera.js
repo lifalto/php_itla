@@ -1,29 +1,27 @@
 
 
-var materiaTemplate = `
-    <tr id="row-materia-{{ID}}">
+var carreraTemplate = `
+    <tr id="row-carrera-{{ID}}">
     <td>{{NOMBRE}}</td>
-    <td>{{CREDITOS}}</td>
-    <td>
-        <button id="editar-{{ID}}" onclick='editar({{ID}})' data-materia='{{DATA}}' class="btn btn-warning">Editar</button> | 
+     <td>
+        <button id="editar-{{ID}}" onclick='editar({{ID}})' data-carrera='{{DATA}}' class="btn btn-warning">Editar</button> | 
         <button onclick="eliminar({{ID}})" class="btn btn-danger">Eliminar</button>
     </td>
     </tr>
 `
 var selectTemplate='<option value=="{{ID}}">{{NOMBRE}}</option>';
 
-function buscarMateria() {
-    fetch("/materia.php")
+function buscarcarrera() {
+    fetch("/carrera.php")
         .then( res => res.json())
         .then( res => {
-            var listaM = document.getElementById('list_materia');
-            var listaMa = document.getElementById('lista_materias');
+            var listaM = document.getElementById('list_carrera');
+            var listaMa = document.getElementById('lista_carreras');
             var temp = '';
             var tempo = '';
 
             res.forEach(m => {
-                temp = temp + materiaTemplate.replace(/{{NOMBRE}}/, m.nombre)
-                    .replace(/{{CREDITOS}}/, m.creditos)
+                temp = temp + carreraTemplate.replace(/{{NOMBRE}}/, m.nombre)
                     .replace(/{{ID}}/g, m.id)
                     .replace(/{{DATA}}/, JSON.stringify(m));
             
@@ -40,32 +38,30 @@ function buscarMateria() {
         });
 }
 
-var materia = null;
+var carrera = null;
 
 function guardar(){
 
     nombre = document.getElementById("nombre").value;
-    creditos = document.getElementById("creditos").value;
-
+    
     var nueva = true;
-    if (materia != null && materia.id ){
+    if (carrera != null && carrera.id ){
         nueva = false;
-        var btnEditar = document.getElementById("editar-"+materia.id);
+        var btnEditar = document.getElementById("editar-"+carrera.id);
     } else {
-        materia = {};
+        carrera = {};
     }
 
-    materia.nombre = nombre;
-    materia.creditos = creditos;
-    console.log(materia);
+    carrera.nombre = nombre;
+    console.log(carrera);
    
     if (nueva == false) {
-        btnEditar.dataset.materia = JSON.stringify(materia);
+        btnEditar.dataset.carrera = JSON.stringify(carrera);
     }
 
-   fetch('/materia.php'+(nueva ? '' : `?id=${materia.id}`), {
+   fetch('/carrera.php'+(nueva ? '' : `?id=${carrera.id}`), {
         method: (nueva ? 'POST' : 'PUT'),
-        body: JSON.stringify(materia),
+        body: JSON.stringify(carrera),
         headers: {
             'Content-Type': 'application/json'
           }
@@ -79,48 +75,45 @@ function guardar(){
     });
 
 
-    materia = null;
+    carrera = null;
     document.getElementById("nombre").value="";
-    document.getElementById("creditos").value="";
-    buscarMateria();
+    buscarcarrera();
 }
 
 function editar(id){
-
     var btnEditar = document.getElementById("editar-"+id);
 
-    var data = btnEditar.dataset.materia;
-    materia = JSON.parse(data);
+    var data = btnEditar.dataset.carrera;
+    carrera = JSON.parse(data);
 
-    document.getElementById("nombre").value = materia.nombre;
-    document.getElementById("creditos").value = materia.creditos;
-    this.buscarMateria();
-    buscarMateria();
+    document.getElementById("nombre").value = carrera.nombre;
+    this.buscarcarrera();
+    buscarcarrera();
 }
 
 function eliminar(id){
-    fetch(`/materia.php?id=${id}`, {
+    fetch(`/carrera.php?id=${id}`, {
         method: 'DELETE'
     })
     .then( res => res.json())
     .then( res => {
-        var row = document.getElementById("row-materia-"+id).rowIndex;
+        var row = document.getElementById("row-carrera-"+id).rowIndex;
 
-        document.getElementById('tabla_materias').deleteRow(row);
+        document.getElementById('tabla_carreras').deleteRow(row);
         console.log(res);
     })
     .catch( err => {
         console.log(err);
     });
     
-    buscarMateria();
+    buscarcarrera();
 }
 
 
 window.onload = function(){
-    buscarMateria();
+    buscarcarrera();
 
-    document.getElementById("guardarMateria")
+    document.getElementById("guardarCarrera")
     .addEventListener("click", guardar);
 
     
