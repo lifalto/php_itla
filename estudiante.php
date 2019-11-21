@@ -7,7 +7,9 @@ function buscarEstudiante() {
 
     $cn = getConexion();
     
-    $stm = $cn->query("SELECT * FROM estudiante");
+    //$stm = $cn->query("SELECT * FROM estudiante");
+    $stm = $cn->query("SELECT e.id, e.nombre, e.edad, e.matricula, e.carrera_id, c.nombre AS carrera 
+    FROM estudiante AS e INNER JOIN carrera AS c ON e.carrera_id = c.id");
     $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
     $data = json_encode($rows );
     //creamos header, todas las respuestas deben ser json porque es API
@@ -71,7 +73,7 @@ function guardarEstudiante() {
     } catch(Exception $e){
         $response = [ 
             "error" => true,
-            "message" => "Error desconocido"
+            "message" => $e.getMessage()
             // "message" => $e.getMessage() para que me diga cual es el error
         ];
         
