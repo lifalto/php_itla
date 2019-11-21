@@ -1,5 +1,3 @@
-
-
 var estudianteTemplate = `
     <tr id="row-estudiante-{{ID}}">
     <td>{{NOMBRE}}</td>
@@ -13,7 +11,8 @@ var estudianteTemplate = `
     </td>
     </tr>
 `
-var selectTemplate='<option value=="{{ID}}">{{NOMBRE}}</option>';
+var selectTemplate='<option value="{{ID}}">{{NOMBRE}}</option>';
+var carr_id;
 
 function myFunction() {
     //   var x= document.getElementById("lista_carreras").options.selectedIndex;
@@ -51,6 +50,17 @@ function buscaCarrera() {
         .catch( err => {
             console.log(err);
         });
+
+        const selectElement = document.querySelector('.carr');
+        selectElement.addEventListener('change', (event) => {
+            carr_id=event.target.value;
+            console.log(carr_id);
+
+            var e = document.getElementById("lista_carreras");
+            //var valor = e.options[e.selectedIndex].text; 
+            var valor = event.target.textContent; 
+            console.log(valor);    
+        });
 }
 
 
@@ -80,6 +90,7 @@ function buscarestudiante() {
             console.log(err);
         });
 
+
         buscaCarrera();
 }
 
@@ -90,7 +101,7 @@ function guardar(){
     nombre = document.getElementById("nombre").value;
     matricula = document.getElementById("matricula").value;
     edad = document.getElementById("edad").value;
-    carrera_id = document.getElementById("lista_carreras").value;
+    carrera_id = carr_id;
     console.log(carrera_id);
     
     var nueva = true;
@@ -104,8 +115,7 @@ function guardar(){
     estudiante.nombre = nombre;
     estudiante.matricula = matricula;
     estudiante.edad = edad;
-    estudiante.carrera_id = carrera_id;
-
+    estudiante.carrera_id = carr_id;
     console.log(estudiante);
    
     if (nueva == false) {
@@ -137,6 +147,7 @@ function guardar(){
 
 
     buscarestudiante();
+    this.buscarestudiante();
 }
 
                     function setSelectedIndex(s, i)
@@ -176,11 +187,12 @@ function editar(id){
 
 
                 var select = document.getElementById("lista_carreras");
-               // var currentOpt = select.options[select.selectedIndex];
-               // var currentOpt = select.options['1'];
+                    // var currentOpt = select.options[select.selectedIndex];
+                    // var currentOpt = select.options['1'];
                 select.selectedIndex= i;
+                carr_id=i;
                 console.log(currentOpt.text);
-
+               // break;
 
             // var y=document.getElementById("lista_carreras");
             // y.selectedIndex='1';
@@ -206,14 +218,18 @@ function editar(id){
      //}
       
 
-//        sel.addEventListener('change', function() {
-//         var index = sel.selectedIndex;
-        
-//            })
+    //    sel.addEventListener('change', function() {
+    //     var index = sel.selectedIndex;
+    //     carr_id = sel.selectedIndex;
+    //     console.log(carr_id);
+    //        })
+
+   
 //    }
 
-    this.buscarestudiante();
+    //this.buscarestudiante();
     buscarestudiante();
+    this.buscarestudiante();
 }
 
 function eliminar(id){
